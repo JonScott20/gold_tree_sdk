@@ -1,11 +1,9 @@
 from urllib import request, parse
 import json
-import sys
-from collections import namedtuple
 import datetime
 import pandas as pd
 import time
-import gold_tree_sdk
+import goldtree
 
 
 class RequestManager:
@@ -43,8 +41,8 @@ class RequestManager:
 
     def authenticate(self):
         url = self.API_ENDPOINT + 'api/Account/Token'
-        username = gold_tree_sdk.settings.USERNAME
-        password = gold_tree_sdk.settings.PASSWORD
+        username = goldtree.settings.USERNAME
+        password = goldtree.settings.PASSWORD
         body = {'username': username, 'password': password}
         data = parse.urlencode(body).encode()
         req = request.Request(url, data=data)
