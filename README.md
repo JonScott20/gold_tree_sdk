@@ -42,6 +42,7 @@ Success
 ~~~~
 
 # Usage
+Observe that the start and end variables are Unix timestamps.
 ~~~~
 >>> import goldtree
 >>> gt = goldtree.RequestManager()
