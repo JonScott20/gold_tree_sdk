@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='gold_tree_sdk',  # How you named your package folder (MyLib)
     packages=['gold_tree_sdk'],  # Chose the same as "name"
-    version='0.1',
+    version='0.2',
     # Start with a small number and increase it with every change you make
     license='MIT',
     # Chose a license from here:
@@ -16,7 +16,7 @@ setup(
     # Provide either the link to your github or to your website
     download_url=(
         'https://github.com/JonScott20/' +
-        'gold_tree_sdk/archive/v_01.tar.gz'
+        'gold_tree_sdk/archive/v_02.tar.gz'
     ),  # I explain this later on
     keywords=[
         'Data',
