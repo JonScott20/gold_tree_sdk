@@ -1,8 +1,9 @@
-from urllib import request, parse
+from urllib import request, parse, error
 import json
 import datetime
 import pandas as pd
 import time
+import sys
 import goldtree
 
 
@@ -37,19 +38,28 @@ class RequestManager:
     ]
 
     def __init__(self):
+        self.authentication_status = "Unauthenticated"
         self.accessToken = self.authenticate()
 
     def authenticate(self):
-        url = self.API_ENDPOINT + 'api/Account/Token'
-        username = goldtree.settings.USERNAME
-        password = goldtree.settings.PASSWORD
-        body = {'username': username, 'password': password}
-        data = parse.urlencode(body).encode()
-        req = request.Request(url, data=data)
-        resp = request.urlopen(req)
-        result = json.load(resp)
-        access_token = result["AccessToken"]
-        return access_token
+        try:
+            url = self.API_ENDPOINT + 'api/Account/Token'
+            username = goldtree.settings.USERNAME
+            password = goldtree.settings.PASSWORD
+            body = {'username': username, 'password': password}
+            data = parse.urlencode(body).encode()
+            req = request.Request(url, data=data)
+            resp = request.urlopen(req)
+            result = json.load(resp)
+            access_token = result["AccessToken"]
+            self.authentication_status = "Success"
+            return access_token
+        except error.HTTPError as auth_error:
+            self.eprint("Unable to authenticate.")
+            self.eprint(auth_error)
+            self.eprint("Did you set the username and ",
+                        "password in the settings.py file?")
+            self.authentication_status = "Failed"
 
     def get_kpi(self, target_kpi, group_mode, start_date, end_date):
         url = (
@@ -107,6 +117,10 @@ class RequestManager:
             # A sleep to go be kind to the GPM API
             time.sleep(0.5)
         return new_df
+
+    @staticmethod
+    def eprint(*args, **kwargs):
+        print(*args, file=sys.stderr, **kwargs)
 
     @staticmethod
     def clean_data(training_data):
