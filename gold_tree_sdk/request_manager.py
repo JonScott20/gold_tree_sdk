@@ -5,7 +5,7 @@ from collections import namedtuple
 import datetime
 import pandas as pd
 import time
-import request_manager
+import gold_tree_sdk
 
 
 class RequestManager:
