@@ -43,8 +43,8 @@ class RequestManager:
 
     def authenticate(self):
         url = self.API_ENDPOINT + 'api/Account/Token'
-        username = request_manager.settings.USERNAME #'webapi_calpoly'
-        password = request_manager.settings.PASSWORD #'UYYFrws4uQer'
+        username = gold_tree_sdk.settings.USERNAME
+        password = gold_tree_sdk.settings.PASSWORD
         body = {'username': username, 'password': password}
         data = parse.urlencode(body).encode()
         req = request.Request(url, data=data)
